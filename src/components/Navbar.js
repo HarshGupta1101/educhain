@@ -6,21 +6,21 @@ import { useSidebarContext } from '../context/sidebar_context';
 import { useCartContext } from '../context/cart_context';
 import { Button } from "react-bootstrap";
 
-const Navbars = ({ currentUser, nearConfig, wallet }) => {
+const Navbar = ({ currentUser, nearConfig, wallet }) => {
   const { total_items } = useCartContext();
   const { openSidebar } = useSidebarContext();
 
   const handleUser = (e) => {
-    if (currentUser && e.target.textContent === 'Logout') {
+    if (currentUser && e.target.textContent === "Logout") {
       (function signOut() {
         wallet.signOut();
         window.location.replace(
           window.location.origin + window.location.pathname
         );
       })();
-    } else if (!currentUser && e.target.textContent === 'Login') {
+    } else if (!currentUser && e.target.textContent === "Login") {
       (function signIn() {
-        wallet.requestSignIn(nearConfig.contractName, 'NEAR');
+        wallet.requestSignIn(nearConfig.contractName, "NEAR");
       })();
     }
   };
@@ -43,7 +43,7 @@ const Navbars = ({ currentUser, nearConfig, wallet }) => {
             <Link to='/courses' className='cart-btn'>
               Courses
             </Link>
-            <Button onClick={handleUser}>
+            <Button variant="info" onClick={handleUser}>
                 {currentUser ? "Logout" : "Login"}
             </Button>
             <Link to='/cart' className='cart-btn1'>
@@ -127,4 +127,4 @@ const NavbarWrapper = styled.nav`
   }
 `;
 
-export default Navbars;
+export default Navbar;

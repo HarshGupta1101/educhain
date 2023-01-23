@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import 'remixicon/fonts/remixicon.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -35,25 +35,30 @@ async function initContract() {
     };
   }
 
-  return { currentUser, nearConfig, walletConnection };
+  return { currentUser, nearConfig, walletConnection, near };
 }
 
+const container = document.getElementById('root');
+const root = createRoot(container);
+
 window.nearInitPromise = initContract().then(
-  ({ contract, currentUser, nearConfig, walletConnection }) => {
-    ReactDOM.render(
+  ({ contract, currentUser, nearConfig, walletConnection, near }) => {
+    root.render(
       <SidebarProvider>
         <CoursesProvider>
           <CartProvider>
-            <App
-              contract={contract}
-              currentUser={currentUser}
-              nearConfig={nearConfig}
-              wallet={walletConnection}
-            />
+            <React.StrictMode>
+              <App
+                contract={contract}
+                currentUser={currentUser}
+                nearConfig={nearConfig}
+                wallet={walletConnection}
+                near = {near}
+              />
+            </React.StrictMode>
           </CartProvider>
         </CoursesProvider>
-      </SidebarProvider>,
-      document.getElementById('root')
+      </SidebarProvider>
     );
   }
 );
