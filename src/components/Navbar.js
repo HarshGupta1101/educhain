@@ -4,24 +4,23 @@ import { MdMenu, MdShoppingCart } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useSidebarContext } from '../context/sidebar_context';
 import { useCartContext } from '../context/cart_context';
-import { Button } from "react-bootstrap";
+import { logout, login } from '../utils/utils';
 
-const Navbar = ({ currentUser, nearConfig, wallet }) => {
+const Navbar = () => {
   const { total_items } = useCartContext();
   const { openSidebar } = useSidebarContext();
 
   const handleUser = (e) => {
-    if (currentUser && e.target.textContent === "Logout") {
-      (function signOut() {
-        wallet.signOut();
-        window.location.replace(
-          window.location.origin + window.location.pathname
-        );
-      })();
-    } else if (!currentUser && e.target.textContent === "Login") {
-      (function signIn() {
-        wallet.requestSignIn(nearConfig.contractName, "NEAR");
-      })();
+    if (
+      window.walletConnection.isSignedIn() &&
+      e.target.textContent === 'Logout'
+    ) {
+      logout();
+    } else if (
+      !window.walletConnection.isSignedIn() &&
+      e.target.textContent === 'Login'
+    ) {
+      login();
     }
   };
 
@@ -43,9 +42,9 @@ const Navbar = ({ currentUser, nearConfig, wallet }) => {
             <Link to='/courses' className='cart-btn'>
               Courses
             </Link>
-            <Button variant="info" onClick={handleUser}>
-                {currentUser ? "Logout" : "Login"}
-            </Button>
+            <Link className='cart-btn' onClick={handleUser}>
+              {window.walletConnection.isSignedIn() ? 'Logout' : 'Login'}
+            </Link>
             <Link to='/cart' className='cart-btn1'>
               <MdShoppingCart />
               <span className='item-count-badge'>{total_items}</span>

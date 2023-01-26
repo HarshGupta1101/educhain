@@ -3,6 +3,7 @@ import { useCartContext } from '../context/cart_context';
 import styled from "styled-components";
 import CartItem from "../components/CartItem";
 import {MdClear} from "react-icons/md";
+import { paymentGateway } from '../utils/utils';
 
 const CartPage = () => {
   const {cart: cartItems, total_items, total_amount, clearCart} = useCartContext();
@@ -50,7 +51,7 @@ const CartPage = () => {
             <div className='cart-total'>
               <span className='d-block fs-18 fw-6'>Total:</span>
               <div className='cart-total-value fw-8'>${total_amount.toFixed(2)}</div>
-              <button type = "button" className='checkout-btn bg-purple text-white fw-6'>Checkout</button>
+              <button type = "button" onClick={paymentGateway} className='checkout-btn bg-purple text-white fw-6'>Checkout</button>
             </div>
           </div>
           {/* end of cart grid right */}

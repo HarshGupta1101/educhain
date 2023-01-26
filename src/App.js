@@ -7,10 +7,10 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import About from './pages/About';
 
-function App({ currentUser, nearConfig, wallet }) {
+function App() {
   return (
     <BrowserRouter>
-      <Navbar currentUser={currentUser} nearConfig={nearConfig} wallet={wallet} />
+      <Navbar />
       <Sidebar />
       <Routes>
         <Route path = "/" element = {<Home />} />
