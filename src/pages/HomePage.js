@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <div className='holder'>
       <Hero />
-      <CoursesList />
+      <CoursesList page = "home"/>
       <CategoriesList />
       <Footer/>
     </div>

@@ -106,7 +106,7 @@ const NavbarWrapper = styled.nav`
   }
 
   .sidebar-open-btn {
-    display: none;
+    display: block ;
     transition: all 300ms ease-in-out;
     &:hover {
       opacity: 0.7;
